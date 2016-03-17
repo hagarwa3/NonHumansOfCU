@@ -1,0 +1,2 @@
+INSERT INTO Quotes (Quote) VALUE ('lololololol');
+SELECT * from Quotes;
