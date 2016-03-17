@@ -8,10 +8,10 @@ CORS(app)
 cors = CORS(app, resources={"/*": {"origins": "*"}})
 #cors2 = CORS(app, resources={"/insert/": {"origins": "*"}})
 mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'b42d5429495ba1'
-app.config['MYSQL_DATABASE_PASSWORD'] = '8bd2e75a'
-app.config['MYSQL_DATABASE_DB'] = 'heroku_b089831d5b9fbdc'
-app.config['MYSQL_DATABASE_HOST'] = 'us-cdbr-iron-east-03.cleardb.net'
+app.config['MYSQL_DATABASE_USER'] = 'randomuseraskmeforaccess'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'randompass'
+app.config['MYSQL_DATABASE_DB'] = 'somedb'
+app.config['MYSQL_DATABASE_HOST'] = 'somelink.net'
 mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
