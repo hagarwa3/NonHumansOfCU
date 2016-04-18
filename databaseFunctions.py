@@ -165,6 +165,12 @@ def updateKarma(postId,add,conn):
 	cursor.execute(stringIn)
 	conn.commit()
 
+def createUser(username, password,conn):
+	cursor = conn.cursor()
+	stringIn = "INSERT INTO Users(Username, Pass) Values(\'"+username+"\',\'"+password+"\');"
+	cursor.execute(stringIn)
+	conn.commit()
+
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
     #app.run(host='0.0.0.0', port=port, debug = True)
