@@ -150,6 +150,14 @@ def addToFeed(post,userID, tag, conn):
 	print stringIn
 	cursor.execute(stringIn)
 	conn.commit()
+	
+def updateKarma(postId,add):
+	cursor = conn.cursor()
+	stringIn = "UPDATE Posts SET karma = karma + "+str(add)+" Where PostId = "+str(postId)+";"
+	cursor.execute(stringIn)
+	stringIn = "UPDATE Users SET karma = karma + "+str(add)+"  Where Users.UserId= (Select UserId From Posts Where PostId = "+str(postId)+");"
+	cursor.execute(stringIn)
+	conn.commit()
 
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
