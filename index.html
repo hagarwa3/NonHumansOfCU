@@ -281,6 +281,14 @@
       </ul>
     </div>
         <br><br><br><br><br><br>
+    <div>
+        {% for item in posts %}
+            <div class="row posts">
+                <p class="col-sm-6">{{ item.post }}</p>
+                <p class="col-sm-4">{{ item.dateinsert }}</p>
+            </div>
+        {% endfor %}
+    </div>
     <div id="area">
     </div>
 <script>
