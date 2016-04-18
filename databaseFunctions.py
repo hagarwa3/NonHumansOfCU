@@ -144,6 +144,13 @@ def getQuote():
 	conn.commit()
 	return many
 
+def addToFeed(post,userID, tag, conn):
+	cursor = conn.cursor()
+	stringIn = "INSERT INTO Posts(Post,UserID,Tag) Values(\'"+post+"\',"+str(userID)+",\'"+tag+"\');"
+	print stringIn
+	cursor.execute(stringIn)
+	conn.commit()
+
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
     #app.run(host='0.0.0.0', port=port, debug = True)
