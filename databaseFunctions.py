@@ -150,8 +150,14 @@ def addToFeed(post,userID, tag, conn):
 	print stringIn
 	cursor.execute(stringIn)
 	conn.commit()
-	
-def updateKarma(postId,add):
+#this returns the cursor that can be used to get the feeds
+def fillfeed(tagname,conn):
+	cursor = conn.cursor()
+	stringIn = "SELECT * FROM Posts WHERE karma > -3 AND dateInsert < DATE_ADD(now(),interval -1 day);"
+	cursor.execute(stringIn)
+	return cursor
+
+def updateKarma(postId,add,conn):
 	cursor = conn.cursor()
 	stringIn = "UPDATE Posts SET karma = karma + "+str(add)+" Where PostId = "+str(postId)+";"
 	cursor.execute(stringIn)
