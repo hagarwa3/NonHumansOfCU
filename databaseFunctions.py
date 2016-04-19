@@ -120,7 +120,7 @@ def getQuote():
 	tag = tag.replace('"',"")
 	print tag
 	tags = [tag]
-	find = "SELECT q.Quote FROM Quotes AS q, Tags As t WHERE "
+	find = "SELECT DISTINCT q.Quote FROM Quotes AS q, Tags As t WHERE "
 	count = 0
 	for line in tags:
 		if count >0:
