@@ -170,6 +170,7 @@ def addToFeed():
 	conn.ping(True)
 	cursor.execute(stringIn)
 	conn.commit()
+	return "hahahahaha"
 
 
 
@@ -182,15 +183,22 @@ def fillfeed():
 	tagname = tagname.replace("%22","")
 	tagname = tagname.replace('"',"")
 	print tagname
-	stringIn = "SELECT * FROM Posts WHERE karma > -3 AND dateInsert < DATE_ADD(now(),interval -1 day);"
+	stringIn = "SELECT * FROM Posts WHERE karma > -3 AND DATEINSERT >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND tag = \""+tagname+"\";"
 	conn.ping(True)
 	cursor.execute(stringIn)
-	lists = []
+#	lists = []
 	somedict = {}
 	for row in cursor:
 		thislist = [row[0], row[1], row[2], row[3], row[5]]
-		somedict[row[0]] = {"post":row[1], "userID":row[2], "tagname":row[3], "karma":row[5]}
-	 	lists.append(thislist)
+		print thislist
+		cursor2 = conn.cursor()
+		stringIn = "SELECT username FROM Users Where userId = " +str(row[2])+";"
+		cursor2.execute(stringIn)
+		username = "hello"
+		for name in cursor2:
+			username = name[0]
+		somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
+#	 	lists.append(thislist)
 	haha = json.dumps(somedict)
 	return haha
 
