@@ -3,6 +3,7 @@ from flask.ext.mysql import MySQL
 from random import randint
 from flask.ext.cors import CORS
 import os
+import json
 app = Flask(__name__)
 CORS(app)
 cors = CORS(app, resources={"/*": {"origins": "*"}})
@@ -20,7 +21,7 @@ quote = 'Wombo Combo.'
 newquote = 'lalalala'
 
 
-@app.route("/insert/", methods=['GET', 'POST'])
+@app.route("/insertquote/", methods=['GET', 'POST'])
 def insertQuote():
 	#cursor = conn.cursor()
 	print "here we go"
@@ -56,7 +57,7 @@ def insertQuote():
 	return "success i believe"
 
 
-@app.route("/delete/", methods=['GET', 'POST'])
+@app.route("/deletequote/", methods=['GET', 'POST'])
 def deleteQuote():
 	#cursor = conn.cursor()
 	print "delete starts"
@@ -91,7 +92,7 @@ def deleteQuote():
 # 	cursor.execute(delete)
 # 	conn.commit()
 
-@app.route("/update/", methods=['GET', 'POST'])
+@app.route("/updatequote/", methods=['GET', 'POST'])
 def updateQuote():
 	#cursor = conn.cursor()
 	quo = request.args.get('quote')
@@ -109,7 +110,7 @@ def updateQuote():
 	conn.commit()
 	return "kinda worked"
 
-@app.route("/get/", methods=['GET'])
+@app.route("/getquote/", methods=['GET'])
 def getQuote():
 	#cursor = conn.cursor()
 	print "here"
@@ -120,7 +121,7 @@ def getQuote():
 	tag = tag.replace('"',"")
 	print tag
 	tags = [tag]
-	find = "SELECT q.Quote FROM Quotes AS q, Tags As t WHERE "
+	find = "SELECT DISTINCT q.Quote FROM Quotes AS q, Tags As t WHERE "
 	count = 0
 	for line in tags:
 		if count >0:
@@ -144,28 +145,97 @@ def getQuote():
 	conn.commit()
 	return many
 
-def addToFeed(post,userID, tag, conn):
-	cursor = conn.cursor()
+
+@app.route("/addfeed/", methods=['GET'])
+def addToFeed():
+	#cursor = conn.cursor()
+
+	print "here we go"
+	print str(request)
+	post = request.args.get('post')
+	post = post.replace("%22","")
+	post = post.replace('"',"")
+	print post
+	userID = request.args.get('userID')
+	userID = userID.replace("%22","")
+	userID = userID.replace('"',"")
+	print userID
+	tag = request.args.get('tag')
+	tag = tag.replace("%22","")
+	tag = tag.replace('"',"")
+	print tag
+
 	stringIn = "INSERT INTO Posts(Post,UserID,Tag) Values(\'"+post+"\',"+str(userID)+",\'"+tag+"\');"
 	print stringIn
+	conn.ping(True)
 	cursor.execute(stringIn)
 	conn.commit()
+
+
+
 #this returns the cursor that can be used to get the feeds
-def fillfeed(tagname,conn):
-	cursor = conn.cursor()
+@app.route("/getfeed/", methods=['GET'])
+def fillfeed():
+	print "here we go"
+	print str(request)
+	tagname = request.args.get('tagname')
+	tagname = tagname.replace("%22","")
+	tagname = tagname.replace('"',"")
+	print tagname
 	stringIn = "SELECT * FROM Posts WHERE karma > -3 AND dateInsert < DATE_ADD(now(),interval -1 day);"
+	conn.ping(True)
 	cursor.execute(stringIn)
-	return cursor
+	lists = []
+	somedict = {}
+	for row in cursor:
+		thislist = [row[0], row[1], row[2], row[3], row[5]]
+		somedict[row[0]] = {"post":row[1], "userID":row[2], "tagname":row[3], "karma":row[5]}
+	 	lists.append(thislist)
+	haha = json.dumps(somedict)
+	return haha
 
-def updateKarma(postId,add,conn):
+
+
+@app.route("/updatekarma/", methods=['GET','POST'])
+def updateKarma():
+
+	print "here we go"
+	print str(request)
+	postID = request.args.get('postID')
+	print postID
+	postID = postID.replace("%22","")
+	postID = postID.replace('"',"")
+	print postID
+
+	add = request.args.get('add')
+	add = add.replace("%22","")
+	add = add.replace('"',"")
+	print add
+
 	cursor = conn.cursor()
-	stringIn = "UPDATE Posts SET karma = karma + "+str(add)+" Where PostId = "+str(postId)+";"
+	stringIn = "UPDATE Posts SET karma = karma + "+str(add)+" Where PostId = "+str(postID)+";"
 	cursor.execute(stringIn)
-	stringIn = "UPDATE Users SET karma = karma + "+str(add)+"  Where Users.UserId= (Select UserId From Posts Where PostId = "+str(postId)+");"
+	stringIn = "UPDATE Users SET karma = karma + "+str(add)+"  Where Users.UserId= (Select UserId From Posts Where PostId = "+str(postID)+");"
 	cursor.execute(stringIn)
 	conn.commit()
+	return "hahaha"
+@app.route("/createuser/", methods=['POST'])
+def createUser():
 
-def createUser(username, password,conn):
+
+	print "here we go"
+	print str(request)
+	username = request.args.get('username')
+	username = username.replace("%22","")
+	username = username.replace('"',"")
+	print username
+
+	password = request.args.get('password')
+	password = password.replace("%22","")
+	password = password.replace('"',"")
+	print password
+
+
 	cursor = conn.cursor()
 	stringIn = "INSERT INTO Users(Username, Pass) Values(\'"+username+"\',\'"+password+"\');"
 	cursor.execute(stringIn)

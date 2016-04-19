@@ -315,7 +315,10 @@ $(document).ready(function() {
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/get/',
         type: 'GET',
-        data: {tags: JSON.stringify(document.getElementById("inputclient").value)},
+        data: {tags: JSON.stringify(document.getElementById("inputclient").value), hello: "hi"},
+        complete : function(){
+        alert(this.url)
+         },
         //tags: { content: document.getElementById("inputclient").value },
         dataType: "text"
     });

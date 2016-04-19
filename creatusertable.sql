@@ -1,7 +1,7 @@
 CREATE TABLE Users
 (
 UserID BIGINT AUTO_INCREMENT,
-username VARCHAR(30) NULL,
+username VARCHAR(30),
 karma BIGINT default 0,
-pass VARCHAR(15) NULL,
+pass VARCHAR(15),
 PRIMARY KEY (UserID));
