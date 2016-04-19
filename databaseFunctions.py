@@ -170,8 +170,12 @@ def addToFeed():
 	conn.ping(True)
 	cursor.execute(stringIn)
 	conn.commit()
+<<<<<<< HEAD
 	return "hahahahaha"
 
+=======
+	return "lol"
+>>>>>>> 1344809c205bc83b2cd7719edc84c41369e7899a
 
 
 #this returns the cursor that can be used to get the feeds
@@ -189,8 +193,7 @@ def fillfeed():
 #	lists = []
 	somedict = {}
 	for row in cursor:
-		thislist = [row[0], row[1], row[2], row[3], row[5]]
-		print thislist
+#		thislist = [row[0], row[1], row[2], row[3], row[5]]
 		cursor2 = conn.cursor()
 		stringIn = "SELECT username FROM Users Where userId = " +str(row[2])+";"
 		cursor2.execute(stringIn)
