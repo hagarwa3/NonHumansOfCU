@@ -170,12 +170,7 @@ def addToFeed():
 	conn.ping(True)
 	cursor.execute(stringIn)
 	conn.commit()
-<<<<<<< HEAD
 	return "hahahahaha"
-
-=======
-	return "lol"
->>>>>>> 1344809c205bc83b2cd7719edc84c41369e7899a
 
 
 #this returns the cursor that can be used to get the feeds
