@@ -174,8 +174,8 @@
         float: none;
         list-style: none;
         position: relative;
-        padding: 0;
-        margin: 75px auto;
+        padding: 0px;
+        margin: 5px auto;
         }
         .tabs li{
         float: left;
@@ -219,8 +219,8 @@
         font-size: 20px;
         line-height: 140%;
         padding-top: 10px;
-        background: #08C;
-        padding: 15px;
+        background: #000;
+        padding: 10px;
         color: white;
         position: absolute;
         top: 53px;
@@ -242,8 +242,8 @@
         float: none;
         list-style: none;
         position: relative;
-        padding: 0;
-        margin: 75px auto;
+        padding: 1px;
+        margin: 1px auto;
         }
         .tabsA li{
         float: left;
@@ -286,7 +286,7 @@
         width: 100%;
         font-size: 20px;
         line-height: 140%;
-        padding-top: 10px;
+        padding-top: 1px;
         background: #08C;
         padding: 15px;
         color: white;
@@ -315,7 +315,7 @@
                 <label for="tabA3">Quotes</label>
 
                 <div id="tabA-content3" class="tab-content animated fadeIn">
-                    <br>
+
 
                     <div class="container-fluid">
                         <ul class="tabs">
@@ -346,16 +346,8 @@
 
                         </ul>
                     </div>
-                    <br><br><br><br><br><br>
-                    <div>
-                        {% for item in quotes %}
-                        <div class="row posts">
-                            <p class="col-sm-6">{{ item.Quote }}</p>
+                    <br><br>
 
-                            <p class="col-sm-4">{{ item.QuoteID }}</p>
-                        </div>
-                        {% endfor %}
-                    </div>
                     <div id="area">
                     </div>
                 </div>
@@ -364,16 +356,72 @@
                 <input type="radio" name="tabsA" id="tabA2">
                 <label for="tabA2">Other ops</label>
                 <div id="tabA-content2" class="tab-content animated fadeIn">
-                    <select>
-                        <option value="feed1">Feed1</option>
-                        <option value="feed2">Feed2</option>
-                        <option value="feed3">Feed3</option>
-                        <option value="feed4">Feed4</option>
-                        <option value="feed5">Feed5</option>
-                    </select>
-                    <div>
+                    <div class="container-fluid">
+                        <ul class="tabs">
+                            <li>
+                                <input type="radio" checked name="tabs" id="tab11">
+                                <label for="tab11">Query</label>
 
+                                <div id="tab-content11" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient"
+                                              placeholder="Type two tags you are interested in separated by commas. . ."></textarea>
+                                    <button type="button" class="btn btn-success button1">SEND</button>
+                                </div>
+
+                            </li>
+
+                            <li>
+                                <input type="radio" name="tabs" id="tab12">
+                                <label for="tab12">Add</label>
+
+                                <div id="tab-content12" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
+                                              placeholder="Type a quote you would like to add..."></textarea>
+                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
+                                              placeholder="Type a tag for this quote..."></textarea>
+                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                </div>
+                            </li>
+                            <li>
+                                <input type="radio" name="tabs" id="tab13">
+                                <label for="tab13">Add</label>
+
+                                <div id="tab-content13" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
+                                              placeholder="Type a quote you would like to add..."></textarea>
+                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
+                                              placeholder="Type a tag for this quote..."></textarea>
+                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                </div>
+                            </li>
+                            <li>
+                                <input type="radio" name="tabs" id="tab14">
+                                <label for="tab14">Add</label>
+
+                                <div id="tab-content14" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
+                                              placeholder="Type a quote you would like to add..."></textarea>
+                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
+                                              placeholder="Type a tag for this quote..."></textarea>
+                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                </div>
+                            </li>
+                            <li>
+                                <input type="radio" name="tabs" id="tab15">
+                                <label for="tab15">Add</label>
+
+                                <div id="tab-content15" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
+                                              placeholder="Type a quote you would like to add..."></textarea>
+                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
+                                              placeholder="Type a tag for this quote..."></textarea>
+                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                </div>
+                            </li>
+
+                        </ul>
                     </div>
+
                 </div>
             </li>
         </ul>
