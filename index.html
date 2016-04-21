@@ -800,7 +800,9 @@ $(document).ready(function() {
       
        $("~ .karma", this).text(karma);
        var temp = this.parentNode;
+       console.log(temp);
        var content = temp.querySelector("div");
+       console.log(content);
        var postID = content.id;
        console.log(postID);
       var request = $.ajax({
