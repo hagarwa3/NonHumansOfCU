@@ -261,6 +261,13 @@ def getUniqueTagsFromUser(userId,conn):
 	conn.commit();
 	return cursor
 
+def getQuotesAddedByUser(userId, conn):
+	cursor = conn.cursor()
+	stringIn = "SELECT DISTINCT Posts.Post FROM Posts INNER JOIN Quotes ON Posts.userId = " +str(userId)+ " AND Posts.post = Quotes.Quote ;"
+	cursor.execute(stringIn)
+	conn.commit();
+	return cursor
+	
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
     #app.run(host='0.0.0.0', port=port, debug = True)
