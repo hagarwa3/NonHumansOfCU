@@ -246,10 +246,17 @@ def createUser():
 	stringIn = "INSERT INTO Users(Username, Pass) Values(\'"+username+"\',\'"+password+"\');"
 	cursor.execute(stringIn)
 	conn.commit()
-	
+
 def getUserFeed(userId, conn):
 	cursor = conn.cursor()
 	stringIn = "Select * FROM Posts Where Posts.userId = " +str(userId)+ ";"
+	cursor.execute(stringIn)
+	conn.commit();
+	return cursor
+
+def getUniqueTagsFromUser(userId,conn):
+	cursor = conn.cursor()
+	stringIn = "Select DISTINCT Posts.Tag FROM Posts Where Posts.userId = " +str(userId)+ ";"
 	cursor.execute(stringIn)
 	conn.commit();
 	return cursor
