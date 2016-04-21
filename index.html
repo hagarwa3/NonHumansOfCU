@@ -298,6 +298,82 @@
         -o-animation-duration: 0.5s;
         -moz-animation-duration: 0.5s;
         animation-duration: 0.5s;
+    }
+    
+/*$border-width : .5rem;
+$radius : 1rem;  try 50% */
+
+
+$bg : #F6F3E4;
+$green : #4BC35F;
+$red : #C15044;
+
+.vote {
+  /*display: flex;*/
+  flex-direction: column;
+  font-family: "Raleway";
+  position: relative;
+  margin: 1rem;
+  float: right;
+  display: inline;
+}
+
+.increment {
+  flex: 1 0 0;
+  text-align: right;
+  opacity: .5;
+  transition: .35;
+  cursor: pointer;
+  
+  &.up {
+    background: $green;
+    height: 50%;
+    margin-bottom: $border-width/2;
+  }
+  &.down {
+    background: $red;
+    height: 50%;
+  }
+  
+  &:hover {
+    opacity: 1;    
+  }
+}
+
+.karma {
+  
+  top: 0;
+  border-radius: $radius*.1;
+  margin: 10rem*.25;
+  background: $bg;
+  width: 10rem*.5;
+  font-size: 10rem*.25;
+  font-weight: bold;
+  line-height: 10rem*.5;
+  text-align: right;
+  box-shadow: 0 0 0 $border-width $bg;
+  pointer-events: none;
+  
+  &.upvoted { color: $green; }
+  &.downvoted { color: $red; }
+}
+
+.bump {
+  animation: bump 200ms;
+}
+
+@keyframes bump {
+  30% { transform: scale(1.2); }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $bg;
+}
     </style>
 </head>
 <div>
@@ -358,62 +434,44 @@
                         <ul class="tabs">
                             <li>
                                 <input type="radio" checked name="tabs" id="tab11">
-                                <label for="tab11">Query</label>
+                                <label for="tab11" type="button" class="btn btn-success button21">Bowling</label>
 
                                 <div id="tab-content11" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient"
-                                              placeholder="Type two tags you are interested in separated by commas. . ."></textarea>
-                                    <button type="button" class="btn btn-success button1">SEND</button>
+                                        
                                 </div>
 
                             </li>
 
                             <li>
                                 <input type="radio" name="tabs" id="tab12">
-                                <label for="tab12">Add</label>
+                                <label for="tab12" type="button" class="btn btn-success button21">Cartoon</label>
 
                                 <div id="tab-content12" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
-                                              placeholder="Type a quote you would like to add..."></textarea>
-                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
-                                              placeholder="Type a tag for this quote..."></textarea>
-                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                    
                                 </div>
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab13">
-                                <label for="tab13">Add</label>
+                                <label for="tab13" type="button" class="btn btn-success button21">Politics</label>
 
                                 <div id="tab-content13" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
-                                              placeholder="Type a quote you would like to add..."></textarea>
-                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
-                                              placeholder="Type a tag for this quote..."></textarea>
-                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                    
                                 </div>
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab14">
-                                <label for="tab14">Add</label>
+                                <label for="tab14" type="button" class="btn btn-success button21">Cartoon</label>
 
                                 <div id="tab-content14" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
-                                              placeholder="Type a quote you would like to add..."></textarea>
-                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
-                                              placeholder="Type a tag for this quote..."></textarea>
-                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                    
                                 </div>
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab15">
-                                <label for="tab15">Add</label>
+                                <label for="tab15" type="button" class="btn btn-success button21">Politics</label>
 
                                 <div id="tab-content15" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
-                                              placeholder="Type a quote you would like to add..."></textarea>
-                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
-                                              placeholder="Type a tag for this quote..."></textarea>
-                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                    
                                 </div>
                             </li>
 
@@ -427,53 +485,15 @@
     <script>
 $(document).ready(function() {
   $("#inputclient").keyup(function(event){
+    console.log("quick test");
       // if(event.keyCode == 13){
       //    $(".button1").click();
       // }
   });
-
-  $(".button1").click(function(){
-    var textArray = [
-      "I don't even think that deserves a reply, if I'm being entirely honest",
-      "You're ugly and I don't grace ugly people by talking with them",
-      "Let me clarify, because I do not repeat myself. I do not repeat myself",
-      "I would make you pay for the wall, for saying that",
-      "If you worked for me, I would fire you for even mentioning that",
-      "I can assure there is no problem, there is no problem"
-  ];
-  var randomNumber = Math.floor(Math.random()*textArray.length);
-    var client_msg = document.getElementById("inputclient").value 
-    $("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
-
-    var request = $.ajax({
-        url: 'https://nonhumans.herokuapp.com/getquote/',
-        type: 'GET',
-        data: {tags: JSON.stringify(document.getElementById("inputclient").value), hello: "hi"},
-        complete : function(){
-        alert(this.url)
-         },
-        //tags: { content: document.getElementById("inputclient").value },
-        dataType: "text"
-    });
-
-    request.done(function( msg ) {
-          console.log(msg);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
-          var textarea = document.getElementById('area');
-          textarea.scrollTop = textarea.scrollHeight;
-    });
-   
-    request.fail(function( request, status, error ) {
-          console.log(error);7
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
-          var textarea = document.getElementById('area');
-          textarea.scrollTop = textarea.scrollHeight;
-    });
-
-    document.getElementById("inputclient").value = ""
-  });
   // add to feed button
-  $(".button3").click(function(){
+  //$(".button3").click(function(){
+    $(document).on('click', '.button3', function(){
+    console.log("here");
     var textArray = [
       "I don't even think that deserves a reply, if I'm being entirely honest",
       "You're ugly and I don't grace ugly people by talking with them",
@@ -498,14 +518,14 @@ $(document).ready(function() {
     });
 
     request.done(function( msg ) {
-          console.log(msg);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button1'>Try again!</button></div>");
+          console.log("Success");
+          $("#area").append("");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
    
     request.fail(function( request, status, error ) {
-          console.log(error);7
+          console.log(error);
           $("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
@@ -513,8 +533,14 @@ $(document).ready(function() {
 
     document.getElementById("inputclient").value = ""
   });
+
   //try again, get new quote button
-  $(".button4").click(function(){
+  $(document).on('click', '.button4', function(){
+    var d = document.getElementById('outputmessages');
+    d.parentNode.removeChild(d);
+  });
+
+  $(".button1").click(function(){
     var textArray = [
       "I don't even think that deserves a reply, if I'm being entirely honest",
       "You're ugly and I don't grace ugly people by talking with them",
@@ -531,22 +557,20 @@ $(document).ready(function() {
         url: 'https://nonhumans.herokuapp.com/getquote/',
         type: 'GET',
         data: {tags: JSON.stringify(document.getElementById("inputclient").value), hello: "hi"},
-        complete : function(){
-        alert(this.url)
-         },
+        
         //tags: { content: document.getElementById("inputclient").value },
         dataType: "text"
     });
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
+          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<p><button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
    
     request.fail(function( request, status, error ) {
-          console.log(error);7
+          console.log(error);
           $("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
@@ -554,7 +578,6 @@ $(document).ready(function() {
 
     document.getElementById("inputclient").value = ""
   });
-
 
 
   $(".button2").click(function(){
@@ -597,8 +620,208 @@ $(document).ready(function() {
     document.getElementById("inputclient").value = ""
   });
 
-  
+  //feed buttons
+
+  function splitJson(msg){
+    var retString = "";
+    var text = JSON.parse(msg);
+    for (item in text){
+        var postID = item;
+        retString += "id='" + postID + "'>"
+        var info = text[item];
+        var userID = info["userID"];
+        retString += "<b>" + userID + "</b><p>";
+        var post = info["post"];
+        var karma = info["karma"];
+        retString += post; 
+        console.log(info)
+        retString += "<div class='vote'><div class='increment up'> /\\ </div><div class='increment down'> \\/ </div><div class='karma'>" + karma + "</div></div>"
+        retString += "</div><div class='form-control server' id='outputfeed1' float='left' "
+        
+    }
+    return retString;
+  }
+  $(".button21").click(function(){
     
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+                    
+          var d = document.getElementById('outputfeed1');
+          if (d!=null)
+          d.parentNode.removeChild(d);
+          $("#tab-content11").append("<div class='form-control server' float='left' "+ splitJson(msg) + "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+  
+  $(".button22").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#tab-content12").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+  $(".button23").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#tab-content13").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+  $(".button24").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#tab-content14").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+
+  $(".button25").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#tab-content15").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  }); 
+  $(function(){
+  
+    $(document).on('click', '.increment', function(){
+    var karma = parseInt($("~ .karma", this).text());
+    
+    if($(this).hasClass("up")) {
+      var karma = karma + 1;
+      
+       $("~ .karma", this).text(karma);
+       var temp = this.parentNode;
+       var content = temp.querySelector("div");
+       var postID = content.id;
+       console.log(postID);
+      var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/updatekarma/',
+        type: 'GET',
+        data: {postID: JSON.stringify("bowling"), add: JSON.stringify("1")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });  
+    } else {
+      var karma = karma - 1;
+       $("~ .karma", this).text(karma);     
+    }
+    
+    $(this).parent().addClass("bump");
+    
+    setTimeout(function(){
+      $(this).parent().removeClass("bump");    
+    }, 400);
+  });
+});   
   });
     </script>
 
