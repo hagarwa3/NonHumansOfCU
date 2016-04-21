@@ -442,6 +442,71 @@ def getMostFrequentTag():
 		count+=1
 	return res[:-1]
 
+@app.route("/getuniqueuserfeed/", methods=['GET','POST'])
+def getUniqueUserFeed():
+	print str(request)
+	userId = request.args.get('userid')
+	userId = userId.replace("%22","")
+	userId = userId.replace('"',"")
+	print userId
+	conn.ping(True)
+	cursor = conn.cursor()
+	stringIn = "Select COUNT(tag), tag FROM Posts Where Posts.userId = " +str(userId)+ " GROUP BY tag  ORDER BY COUNT(tag) DESC;"
+	cursor.execute(stringIn)
+	conn.commit();
+	frequent = ""
+	count =0
+	somedict =  {}
+	for row in cursor:
+		if count == 1:
+			break;
+		frequent= row[1]
+		count+=1
+	print frequent
+	cursor1 = conn.cursor()
+	stringIn = "Select * FROM Posts Where Posts.userId = " +str(userId)+ " AND Posts.Tag = \'"+frequent+"\';"
+	cursor1.execute(stringIn)
+	conn.commit();
+	for row in cursor1:
+#		thislist = [row[0], row[1], row[2], row[3], row[5]]
+		cursor2 = conn.cursor()
+		stringIn = "SELECT username FROM Users Where userId = " +str(row[2])+";"
+		cursor2.execute(stringIn)
+		username = "hello"
+		for name in cursor2:
+			username = name[0]
+		somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
+#	 	lists.append(thislist)
+	haha = json.dumps(somedict)
+	return haha
+
+@app.route("/getpostbykarma/", methods=['GET','POST'])
+def getPostByKarma():
+	print str(request)
+	userId = request.args.get('userid')
+	userId = userId.replace("%22","")
+	userId = userId.replace('"',"")
+	print userId
+	conn.ping(True)
+	cursor = conn.cursor()
+	stringIn = "Select * FROM Posts Where Posts.userId = " +str(userId)+ " ORDER BY karma DESC;"
+	cursor.execute(stringIn)
+	conn.commit();
+	somedict = {}
+	for row in cursor:
+#		thislist = [row[0], row[1], row[2], row[3], row[5]]
+		cursor2 = conn.cursor()
+		stringIn = "SELECT username FROM Users Where userId = " +str(row[2])+";"
+		cursor2.execute(stringIn)
+		username = "hello"
+		for name in cursor2:
+			username = name[0]
+		print row[5]
+		somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
+#	 	lists.append(thislist)
+	haha = json.dumps(somedict)
+	return haha
+
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
     #app.run(host='0.0.0.0', port=port, debug = True)
