@@ -387,6 +387,46 @@ body {
     <div class="primary">
         <ul class="tabsA">
             <li>
+                <input type="radio" checked name="tabsA" id="tabA1">
+                <label for="tabA1">Login</label>
+
+                <div id="tabA-content3" class="tab-content animated fadeIn">
+
+
+                    <div class="container-fluid">
+                        <ul class="tabs">
+                            <li>
+                                <input type="radio" checked name="tabs" id="tab1">
+                                <label for="tab1">Query</label>
+
+                                <div id="tab-content1" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient"
+                                              placeholder="Type two tags you are interested in separated by commas. . ."></textarea>
+                                    <button type="button" class="btn btn-success button1">SEND</button>
+                                </div>
+
+                            </li>
+                            <li>
+                                <input type="radio" name="tabs" id="tab2">
+                                <label for="tab2">Add</label>
+
+                                <div id="tab-content2" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
+                                              placeholder="Type a quote you would like to add..."></textarea>
+                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
+                                              placeholder="Type a tag for this quote..."></textarea>
+                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <br><br>
+                    <div id="area">
+                    </div>
+                </div>
+            </li>
+            <li>
                 <input type="radio" checked name="tabsA" id="tabA3">
                 <label for="tabA3">Quotes</label>
 
@@ -478,6 +518,86 @@ body {
                         </ul>
                     </div>
 
+                </div>
+            </li>
+            <li>
+                <input type="radio" checked name="tabsA" id="tabA4">
+                <label for="tabA4">User Feed</label>
+
+                <div id="tabA-content3" class="tab-content animated fadeIn">
+
+
+                    <div class="container-fluid">
+                        <ul class="tabs">
+                            <li>
+                                <input type="radio" checked name="tabs" id="tab1">
+                                <label for="tab1">Query</label>
+
+                                <div id="tab-content1" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient"
+                                              placeholder="Type two tags you are interested in separated by commas. . ."></textarea>
+                                    <button type="button" class="btn btn-success button1">SEND</button>
+                                </div>
+
+                            </li>
+                            <li>
+                                <input type="radio" name="tabs" id="tab2">
+                                <label for="tab2">Add</label>
+
+                                <div id="tab-content2" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
+                                              placeholder="Type a quote you would like to add..."></textarea>
+                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
+                                              placeholder="Type a tag for this quote..."></textarea>
+                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <br><br>
+                    <div id="area">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <input type="radio" checked name="tabsA" id="tabA5">
+                <label for="tabA5">Posts</label>
+
+                <div id="tabA-content3" class="tab-content animated fadeIn">
+
+
+                    <div class="container-fluid">
+                        <ul class="tabs">
+                            <li>
+                                <input type="radio" checked name="tabs" id="tab1">
+                                <label for="tab1">Query</label>
+
+                                <div id="tab-content1" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient"
+                                              placeholder="Type two tags you are interested in separated by commas. . ."></textarea>
+                                    <button type="button" class="btn btn-success button1">SEND</button>
+                                </div>
+
+                            </li>
+                            <li>
+                                <input type="radio" name="tabs" id="tab2">
+                                <label for="tab2">Add</label>
+
+                                <div id="tab-content2" class="tab-content animated fadeIn">
+                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
+                                              placeholder="Type a quote you would like to add..."></textarea>
+                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
+                                              placeholder="Type a tag for this quote..."></textarea>
+                                    <button type="button" class="btn btn-success button2">SEND</button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <br><br>
+                    <div id="area">
+                    </div>
                 </div>
             </li>
         </ul>
@@ -690,7 +810,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#tab-content12").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          $("#tab-content12").append("<div class='form-control server' "+ splitJson(msg)+ "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -719,7 +839,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#tab-content13").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          $("#tab-content13").append("<div class='form-control server' "+ splitJson(msg)+ "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -748,7 +868,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#tab-content14").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          $("#tab-content14").append("<div class='form-control server' "+ splitJson(msg)+ "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -778,7 +898,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#tab-content15").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          $("#tab-content15").append("<div class='form-control server' "+ splitJson(msg) + "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
