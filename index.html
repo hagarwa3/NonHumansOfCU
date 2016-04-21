@@ -456,13 +456,13 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
+          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<p><button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
    
     request.fail(function( request, status, error ) {
-          console.log(error);7
+          console.log(error);
           $("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
@@ -496,14 +496,14 @@ $(document).ready(function() {
     });
 
     request.done(function( msg ) {
-          console.log(msg);
+          console.log("Success");
           $("#area").append("");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
    
     request.fail(function( request, status, error ) {
-          console.log(error);7
+          console.log(error);
           $("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
@@ -511,11 +511,11 @@ $(document).ready(function() {
 
     document.getElementById("inputclient").value = ""
   });
+
   //try again, get new quote button
   $(".button4").click(function(){
     var d = document.getElementById('outputmessages');
-    var olddiv = document.getElementById(divNum);
-    d.removeChild(olddiv);
+    d.parentNode.removeChild(d);
   });
 
 
