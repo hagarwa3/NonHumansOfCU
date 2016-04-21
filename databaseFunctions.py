@@ -260,7 +260,19 @@ def getUserFeed():
 	cursor.execute(stringIn)
 	conn.commit()
 	print stringIn
-	return "hello"#cursor
+	somedict = {}
+	for row in cursor:
+#		thislist = [row[0], row[1], row[2], row[3], row[5]]
+		cursor2 = conn.cursor()
+		stringIn = "SELECT username FROM Users Where userId = " +str(row[2])+";"
+		cursor2.execute(stringIn)
+		username = "hello"
+		for name in cursor2:
+			username = name[0]
+		somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
+#	 	lists.append(thislist)
+	haha = json.dumps(somedict)
+	return haha
 
 @app.route("/getuniquetagsfromuser/", methods=['GET','POST'])
 def getUniqueTagsFromUser():
