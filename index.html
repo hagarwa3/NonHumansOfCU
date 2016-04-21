@@ -548,6 +548,12 @@ $(document).ready(function() {
           request.done(function( msg ) {
 
                 console.log(msg);
+                if(msg=="created")
+                  alert("new user created");
+                else if(msg ==  "not found")
+                  alert("password wrong or username already taken")
+                else
+                  alert("logged in");
                 useridnow = msg;
                 console.log("rip");
 
@@ -582,9 +588,7 @@ $(document).ready(function() {
         url: 'https://nonhumans.herokuapp.com/addfeed/',
         type: 'GET',
         data: {tag: JSON.stringify(document.getElementById("inputclient").value), userID: JSON.stringify(useridnow), post: JSON.stringify(po),hello: "hi"},
-        complete : function(){
-        alert(this.url)
-         },
+        
         //tags: { content: document.getElementById("inputclient").value },
         dataType: "text"
     });
