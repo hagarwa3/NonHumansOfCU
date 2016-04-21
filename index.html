@@ -799,10 +799,10 @@ $(document).ready(function() {
       var karma = karma + 1;
       
        $("~ .karma", this).text(karma);
-       var temp = this.parentNode;
+       console.log(this.value);
+       var temp = this.parentNode.parentNode;
        console.log(temp);
-       var content = temp.querySelector("div");
-       console.log(content);
+       var content = temp;
        var postID = content.id;
        console.log(postID);
       var request = $.ajax({
