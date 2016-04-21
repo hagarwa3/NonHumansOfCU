@@ -307,25 +307,20 @@ $radius : 1rem;  try 50% */
 $bg : #F6F3E4;
 $green : #4BC35F;
 $red : #C15044;
-.circle {
-  .up { border-radius: $size $size 0 0; }
-  .down { border-radius: 0 0 $size $size; }
-  .count { border-radius: 50%; }
-}
 
 .vote {
-  display: flex;
+  /*display: flex;*/
   flex-direction: column;
   font-family: "Raleway";
   position: relative;
-  width: 10rem;
-  height: 10rem;
   margin: 1rem;
+  float: right;
+  display: inline;
 }
 
 .increment {
   flex: 1 0 0;
-  text-align: center;
+  text-align: right;
   opacity: .5;
   transition: .35;
   cursor: pointer;
@@ -345,8 +340,8 @@ $red : #C15044;
   }
 }
 
-.count {
-  position: absolute;
+.karma {
+  
   top: 0;
   border-radius: $radius*.1;
   margin: 10rem*.25;
@@ -355,7 +350,7 @@ $red : #C15044;
   font-size: 10rem*.25;
   font-weight: bold;
   line-height: 10rem*.5;
-  text-align: center;
+  text-align: right;
   box-shadow: 0 0 0 $border-width $bg;
   pointer-events: none;
   
@@ -632,6 +627,7 @@ $(document).ready(function() {
     var text = JSON.parse(msg);
     for (item in text){
         var postID = item;
+        retString += "id='" + postID + "'>"
         var info = text[item];
         var userID = info["userID"];
         retString += "<b>" + userID + "</b><p>";
@@ -639,8 +635,8 @@ $(document).ready(function() {
         var karma = info["karma"];
         retString += post; 
         console.log(info)
-        retString += "<div class='vote circle'><div class='increment up'> /\\ </div><div class='increment down'> \\/ </div><div class='karma'>" + karma + "</div></div>"
-        retString += "</div><div class='form-control server' id='outputfeed1'>"
+        retString += "<div class='vote'><div class='increment up'> /\\ </div><div class='increment down'> \\/ </div><div class='karma'>" + karma + "</div></div>"
+        retString += "</div><div class='form-control server' id='outputfeed1' float='left' "
         
     }
     return retString;
@@ -662,7 +658,7 @@ $(document).ready(function() {
           var d = document.getElementById('outputfeed1');
           if (d!=null)
           d.parentNode.removeChild(d);
-          $("#tab-content11").append("<div class='form-control server' id='outputfeed1'>"+ splitJson(msg) + "</div>");
+          $("#tab-content11").append("<div class='form-control server' float='left' "+ splitJson(msg) + "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -803,6 +799,17 @@ $(document).ready(function() {
       var karma = karma + 1;
       
        $("~ .karma", this).text(karma);
+       var temp = this.parentNode;
+       var content = temp.querySelector("div");
+       var postID = content.id;
+       console.log(postID);
+      var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/updatekarma/',
+        type: 'GET',
+        data: {postID: JSON.stringify("bowling"), add: JSON.stringify("1")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });  
     } else {
       var karma = karma - 1;
        $("~ .karma", this).text(karma);     
