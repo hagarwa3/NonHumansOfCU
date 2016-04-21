@@ -444,7 +444,7 @@ body {
 
                             <li>
                                 <input type="radio" name="tabs" id="tab12">
-                                <label for="tab12" type="button" class="btn btn-success button21">Cartoon</label>
+                                <label for="tab12" type="button" class="btn btn-success button22">Cartoon</label>
 
                                 <div id="tab-content12" class="tab-content animated fadeIn">
                                     
@@ -452,7 +452,7 @@ body {
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab13">
-                                <label for="tab13" type="button" class="btn btn-success button21">Politics</label>
+                                <label for="tab13" type="button" class="btn btn-success button23">Politics</label>
 
                                 <div id="tab-content13" class="tab-content animated fadeIn">
                                     
@@ -460,7 +460,7 @@ body {
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab14">
-                                <label for="tab14" type="button" class="btn btn-success button21">Cartoon</label>
+                                <label for="tab14" type="button" class="btn btn-success button24">Cartoon</label>
 
                                 <div id="tab-content14" class="tab-content animated fadeIn">
                                     
@@ -468,7 +468,7 @@ body {
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab15">
-                                <label for="tab15" type="button" class="btn btn-success button21">Politics</label>
+                                <label for="tab15" type="button" class="btn btn-success button25">Politics</label>
 
                                 <div id="tab-content15" class="tab-content animated fadeIn">
                                     
@@ -806,13 +806,21 @@ $(document).ready(function() {
       var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/updatekarma/',
         type: 'GET',
-        data: {postID: JSON.stringify("bowling"), add: JSON.stringify("1")},
+        data: {postID: JSON.stringify(postID), add: JSON.stringify("1")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });  
     } else {
       var karma = karma - 1;
-       $("~ .karma", this).text(karma);     
+       $("~ .karma", this).text(karma);
+       var temp = this.parentNode;
+       var content = temp.querySelector("div");
+       var postID = content.id;
+       console.log(postID);
+      var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/updatekarma/',
+        type: 'GET',
+        data: {postID: JSON.stringify(postID), add: JSON.stringify("-11")},     
     }
     
     $(this).parent().addClass("bump");

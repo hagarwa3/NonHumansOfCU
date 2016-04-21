@@ -448,7 +448,7 @@ $(document).ready(function() {
     $("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
 
     var request = $.ajax({
-        url: 'https://nonhumans.herokuapp.com/get/',
+        url: 'http://127.0.0.1:5000/getquote/',
         type: 'GET',
         data: {tags: JSON.stringify(document.getElementById("inputclient").value), hello: "hi"},
         complete : function(){
