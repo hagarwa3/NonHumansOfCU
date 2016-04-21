@@ -264,6 +264,13 @@ def updateKarma():
 	cursor = conn.cursor()
 	stringIn = "UPDATE Posts SET karma = karma + "+str(add)+" Where PostId = "+str(postID)+";"
 	cursor.execute(stringIn)
+	cursor.execute("SELECT karma From Posts Where PostId = "+str(postID)+";")
+	sum = 0
+	for row in cursor:
+		sum = row[0]
+	print sum
+	if sum <=-3:
+		cursor.execute("DELETE FROM Posts Where PostId = "+str(postID)+";")
 	stringIn = "UPDATE Users SET karma = karma + "+str(add)+"  Where Users.UserId= (Select UserId From Posts Where PostId = "+str(postID)+");"
 	cursor.execute(stringIn)
 	conn.commit()
@@ -361,7 +368,9 @@ def getUserFeed():
 		username = "hello"
 		for name in cursor2:
 			username = name[0]
-		somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
+		word = (row[1].decode("utf-8"))
+		other = word.encode("ascii","ignore")
+		somedict[row[0]] = {"post":word, "userID":username, "tagname":row[3], "karma":row[5]}
 #	 	lists.append(thislist)
 	haha = json.dumps(somedict)
 	return haha
@@ -475,8 +484,9 @@ def getUniqueUserFeed():
 		username = "hello"
 		for name in cursor2:
 			username = name[0]
-		somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
-#	 	lists.append(thislist)
+		word = (row[1].decode("utf-8"))
+		other = word.encode("ascii","ignore")
+		somedict[row[0]] = {"post":word, "userID":username, "tagname":row[3], "karma":row[5]}#	 	lists.append(thislist)
 	haha = json.dumps(somedict)
 	return haha
 
@@ -502,7 +512,9 @@ def getPostByKarma():
 		for name in cursor2:
 			username = name[0]
 		print row[5]
-		somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
+		word = (row[1].decode("utf-8"))
+		other = word.encode("ascii","ignore")
+		somedict[row[0]] = {"post":word, "userID":username, "tagname":row[3], "karma":row[5]}
 #	 	lists.append(thislist)
 	haha = json.dumps(somedict)
 	return haha
