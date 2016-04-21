@@ -35,6 +35,10 @@ def insertQuote():
 	tags = tags.replace("%22","")
 	tags = tags.replace('"',"")
 	print tags
+	userId = request.args.get('userid')
+	userId = userId.replace("%22","")
+	userId = userId.replace('"',"")
+	print userId
 	tag = [tags]
 	stringIn = "INSERT INTO Quotes(Quote) Values(\'"+qu+"\')"
 	conn.ping(True)
@@ -54,9 +58,16 @@ def insertQuote():
 		conn.ping(True)
 		cursor.execute(add)
 	conn.commit()
+	addToFeed(qu,userId,tag,conn)
 	return "success i believe"
 
-
+def updateKarma(postId,add,conn):
+	cursor = conn.cursor()
+	stringIn = "UPDATE Posts SET karma = karma + "+str(add)+" Where PostId = "+str(postId)+";"
+	cursor.execute(stringIn)
+	stringIn = "UPDATE Users SET karma = karma + "+str(add)+"  Where Users.UserId= (Select UserId From Posts Where PostId = "+str(postId)+");"
+	cursor.execute(stringIn)
+	conn.commit()
 # @app.route("/deletequote/", methods=['GET', 'POST'])
 # def deleteQuote():
 # 	#cursor = conn.cursor()
@@ -131,6 +142,7 @@ def getQuote():
 		count+=1
 	find += " AND q.QuoteID = t.QuoteID"
 	print find
+
 	conn.ping(True)
 	cursor.execute(find)
 	top = cursor.rowcount
