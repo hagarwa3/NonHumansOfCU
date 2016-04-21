@@ -267,7 +267,15 @@ def getQuotesAddedByUser(userId, conn):
 	cursor.execute(stringIn)
 	conn.commit();
 	return cursor
-	
+
+#gets the frequency of each tag and sorts them from most frequent to least frequent
+def getMostFrequentTag(userId,conn):
+	cursor = conn.cursor()
+	stringIn = "Select COUNT(tag), tag FROM Posts Where Posts.userId = " +str(userId)+ " GROUP BY tag  ORDER BY COUNT(tag) DESC;"
+	cursor.execute(stringIn)
+	conn.commit();
+	return cursor
+
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
     #app.run(host='0.0.0.0', port=port, debug = True)
