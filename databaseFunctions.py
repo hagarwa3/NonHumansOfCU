@@ -246,6 +246,13 @@ def createUser():
 	stringIn = "INSERT INTO Users(Username, Pass) Values(\'"+username+"\',\'"+password+"\');"
 	cursor.execute(stringIn)
 	conn.commit()
+	
+def getUserFeed(userId, conn):
+	cursor = conn.cursor()
+	stringIn = "Select * FROM Posts Where Posts.userId = " +str(userId)+ ";"
+	cursor.execute(stringIn)
+	conn.commit();
+	return cursor
 
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
