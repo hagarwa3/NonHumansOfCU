@@ -358,7 +358,7 @@
                         <ul class="tabs">
                             <li>
                                 <input type="radio" checked name="tabs" id="tab11">
-                                <label for="tab11" type="button" class="btn btn-success button21">Politics</label>
+                                <label for="tab11" type="button" class="btn btn-success button21">Bowling</label>
 
                                 <div id="tab-content11" class="tab-content animated fadeIn">
                                         
@@ -376,7 +376,7 @@
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab13">
-                                <label for="tab13" type="button" class="btn btn-success button21">Bowling</label>
+                                <label for="tab13" type="button" class="btn btn-success button21">Politics</label>
 
                                 <div id="tab-content13" class="tab-content animated fadeIn">
                                     
@@ -384,7 +384,7 @@
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab14">
-                                <label for="tab14" type="button" class="btn btn-success button21">SWAG1</label>
+                                <label for="tab14" type="button" class="btn btn-success button21">Cartoon</label>
 
                                 <div id="tab-content14" class="tab-content animated fadeIn">
                                     
@@ -392,7 +392,7 @@
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab15">
-                                <label for="tab15" type="button" class="btn btn-success button21">SWAG2</label>
+                                <label for="tab15" type="button" class="btn btn-success button21">Politics</label>
 
                                 <div id="tab-content15" class="tab-content animated fadeIn">
                                     
@@ -463,6 +463,7 @@ $(document).ready(function() {
     var d = document.getElementById('outputmessages');
     d.parentNode.removeChild(d);
   });
+
   $(".button1").click(function(){
     var textArray = [
       "I don't even think that deserves a reply, if I'm being entirely honest",
@@ -544,25 +545,25 @@ $(document).ready(function() {
   });
 
   //feed buttons
+
   $(".button21").click(function(){
     
-  //var randomNumber = Math.floor(Math.random()*textArray.length);
-    var client_msg = document.getElementById("inputclient2").value 
-    var client_tag = document.getElementById("inputclient3").value 
-    $("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
-
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/getfeed/',
         type: 'GET',
-        data: {tagname: JSON.stringify(document.getElementById("inputclient2").value),
-          tagname: JSON.stringify(document.getElementById("inputclient3").value)},
+        data: {tagname: JSON.stringify("bowling")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "</div>");
+          var d = document.getElementById('outputfeed1');
+          if (d!=null)
+          d.parentNode.removeChild(d);
+          $("#tab-content11").append("<div class='form-control server' id='outputfeed1'>"+msg+ "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -577,7 +578,123 @@ $(document).ready(function() {
     document.getElementById("inputclient").value = ""
   });
   
+  $(".button22").click(function(){
     
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#tab-content12").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+  $(".button23").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#tab-content13").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+  $(".button24").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#tab-content14").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+
+  $(".button25").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getfeed/',
+        type: 'GET',
+        data: {tagname: JSON.stringify("bowling")},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#tab-content15").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });    
   });
     </script>
 
