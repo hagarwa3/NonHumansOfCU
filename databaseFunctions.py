@@ -217,7 +217,7 @@ def updateKarma():
 	add = add.replace("%22","")
 	add = add.replace('"',"")
 	print add
-
+	conn.ping(True)
 	cursor = conn.cursor()
 	stringIn = "UPDATE Posts SET karma = karma + "+str(add)+" Where PostId = "+str(postID)+";"
 	cursor.execute(stringIn)
@@ -241,40 +241,102 @@ def createUser():
 	password = password.replace('"',"")
 	print password
 
-
+	conn.ping(True)
 	cursor = conn.cursor()
 	stringIn = "INSERT INTO Users(Username, Pass) Values(\'"+username+"\',\'"+password+"\');"
 	cursor.execute(stringIn)
 	conn.commit()
 
-def getUserFeed(userId, conn):
+@app.route("/getuserfeed/", methods=['GET','POST'])
+def getUserFeed():
+	print str(request)
+	userId = request.args.get('userid')
+	userId = userId.replace("%22","")
+	userId = userId.replace('"',"")
+	print userId
+	conn.ping(True)
 	cursor = conn.cursor()
 	stringIn = "Select * FROM Posts Where Posts.userId = " +str(userId)+ ";"
 	cursor.execute(stringIn)
-	conn.commit();
-	return cursor
+	conn.commit()
+	print stringIn
+	return "hello"#cursor
 
-def getUniqueTagsFromUser(userId,conn):
+@app.route("/getuniquetagsfromuser/", methods=['GET','POST'])
+def getUniqueTagsFromUser():
+	print str(request)
+	userId = request.args.get('userid')
+	userId = userId.replace("%22","")
+	userId = userId.replace('"',"")
+	print userId
+	conn.ping(True)
 	cursor = conn.cursor()
 	stringIn = "Select DISTINCT Posts.Tag FROM Posts Where Posts.userId = " +str(userId)+ ";"
 	cursor.execute(stringIn)
-	conn.commit();
-	return cursor
+	count =0
+	romp= cursor.fetchall()
+	res = ""
+	amount = romp[0]
+	for row in cursor:
+#		mostFrequent = str(row[1])
+		if count+1 == amount:
+			res += str(row[0])
+		else:
+			res += str(row[0])+","
+		count+=1
+	return res[:-1]
 
-def getQuotesAddedByUser(userId, conn):
+@app.route("/getquotesaddedbyuser/", methods=['GET','POST'])
+def getQuotesAddedByUser():
+	print str(request)
+	userId = request.args.get('userid')
+	userId = userId.replace("%22","")
+	userId = userId.replace('"',"")
+	print userId
+	conn.ping(True)
 	cursor = conn.cursor()
 	stringIn = "SELECT DISTINCT Posts.Post FROM Posts INNER JOIN Quotes ON Posts.userId = " +str(userId)+ " AND Posts.post = Quotes.Quote ;"
 	cursor.execute(stringIn)
-	conn.commit();
-	return cursor
+	conn.commit()
+	romp= cursor.fetchall()
+	res = ""
+	count =0 
+	amount = romp[0]
+	for row in cursor:
+#		mostFrequent = str(row[1])
+		if count+1 == amount:
+			res += str(row[0])
+		else:
+			res += str(row[0])+","
+		count+=1
+	return res[:-1]
 
 #gets the frequency of each tag and sorts them from most frequent to least frequent
-def getMostFrequentTag(userId,conn):
+@app.route("/getmostfrequenttag/", methods=['GET','POST'])
+def getMostFrequentTag():
+	print str(request)
+	userId = request.args.get('userid')
+	userId = userId.replace("%22","")
+	userId = userId.replace('"',"")
+	print userId
+	conn.ping(True)
 	cursor = conn.cursor()
 	stringIn = "Select COUNT(tag), tag FROM Posts Where Posts.userId = " +str(userId)+ " GROUP BY tag  ORDER BY COUNT(tag) DESC;"
 	cursor.execute(stringIn)
-	conn.commit();
-	return cursor
+	conn.commit()
+	count = 0
+	mostFrequent = ""
+	res = ""
+	romp = cursor.fetchone()
+	amount = romp[0]-1
+	for row in cursor:
+#		mostFrequent = str(row[1])
+		if count == amount:
+			res += str(row[1])
+		else:
+			res += str(row[1])+","
+		count+=1
+	return res[:-1]
 
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
