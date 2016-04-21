@@ -806,7 +806,7 @@ $(document).ready(function() {
       var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/updatekarma/',
         type: 'GET',
-        data: {postID: JSON.stringify(postID), add: JSON.stringify("1")},
+        data: {postID: JSON.stringify(postID), add: JSON.stringify("1")}
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });  
@@ -820,7 +820,8 @@ $(document).ready(function() {
       var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/updatekarma/',
         type: 'GET',
-        data: {postID: JSON.stringify(postID), add: JSON.stringify("-11")}, });     
+        data: {postID: JSON.stringify(postID), add: JSON.stringify("-11")}
+      });     
     }
     
     $(this).parent().addClass("bump");
