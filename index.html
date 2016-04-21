@@ -366,6 +366,10 @@ $red : #C15044;
   30% { transform: scale(1.2); }
 }
 
+input{
+  color:black;
+}
+
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body { 
@@ -390,40 +394,20 @@ body {
                 <input type="radio" checked name="tabsA" id="tabA1">
                 <label for="tabA1">Login</label>
 
-                <div id="tabA-content3" class="tab-content animated fadeIn">
+                <div id="tabA-content3login" class="tab-content animated fadeIn">
 
 
                     <div class="container-fluid">
-                        <ul class="tabs">
-                            <li>
-                                <input type="radio" checked name="tabs" id="tab1">
-                                <label for="tab1">Query</label>
-
-                                <div id="tab-content1" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient"
-                                              placeholder="Type two tags you are interested in separated by commas. . ."></textarea>
-                                    <button type="button" class="btn btn-success button1">SEND</button>
-                                </div>
-
-                            </li>
-                            <li>
-                                <input type="radio" name="tabs" id="tab2">
-                                <label for="tab2">Add</label>
-
-                                <div id="tab-content2" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
-                                              placeholder="Type a quote you would like to add..."></textarea>
-                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
-                                              placeholder="Type a tag for this quote..."></textarea>
-                                    <button type="button" class="btn btn-success button2">SEND</button>
-                                </div>
-                            </li>
-
-                        </ul>
+                         <div class="login">
+                              <h1>Login</h1>
+                                
+                                  <input type="text" name="u" id = "userbox" placeholder="Username" required="required" />
+                                    <input type="password" name="p" id = "passbox" placeholder="Password" required="required" />
+                                    <button type="button" class="btn btn-success logbut">Let me in.</button>
+                               
+                            </div>
                     </div>
-                    <br><br>
-                    <div id="area">
-                    </div>
+                 
                 </div>
             </li>
             <li>
@@ -528,32 +512,7 @@ body {
 
 
                     <div class="container-fluid">
-                        <ul class="tabs">
-                            <li>
-                                <input type="radio" checked name="tabs" id="tab1">
-                                <label for="tab1">Query</label>
-
-                                <div id="tab-content1" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient"
-                                              placeholder="Type two tags you are interested in separated by commas. . ."></textarea>
-                                    <button type="button" class="btn btn-success button1">SEND</button>
-                                </div>
-
-                            </li>
-                            <li>
-                                <input type="radio" name="tabs" id="tab2">
-                                <label for="tab2">Add</label>
-
-                                <div id="tab-content2" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
-                                              placeholder="Type a quote you would like to add..."></textarea>
-                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
-                                              placeholder="Type a tag for this quote..."></textarea>
-                                    <button type="button" class="btn btn-success button2">SEND</button>
-                                </div>
-                            </li>
-
-                        </ul>
+                        
                     </div>
                     <br><br>
                     <div id="area">
@@ -568,32 +527,7 @@ body {
 
 
                     <div class="container-fluid">
-                        <ul class="tabs">
-                            <li>
-                                <input type="radio" checked name="tabs" id="tab1">
-                                <label for="tab1">Query</label>
-
-                                <div id="tab-content1" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient"
-                                              placeholder="Type two tags you are interested in separated by commas. . ."></textarea>
-                                    <button type="button" class="btn btn-success button1">SEND</button>
-                                </div>
-
-                            </li>
-                            <li>
-                                <input type="radio" name="tabs" id="tab2">
-                                <label for="tab2">Add</label>
-
-                                <div id="tab-content2" class="tab-content animated fadeIn">
-                                    <textarea rows="1" class="form-control live_command" id="inputclient2"
-                                              placeholder="Type a quote you would like to add..."></textarea>
-                                    <textarea rows="1" class="form-control live_command" id="inputclient3"
-                                              placeholder="Type a tag for this quote..."></textarea>
-                                    <button type="button" class="btn btn-success button2">SEND</button>
-                                </div>
-                            </li>
-
-                        </ul>
+                        
                     </div>
                     <br><br>
                     <div id="area">
@@ -603,6 +537,7 @@ body {
         </ul>
     </div>
     <script>
+    var useridnow = -5;
 $(document).ready(function() {
   $("#inputclient").keyup(function(event){
     console.log("quick test");
@@ -610,6 +545,31 @@ $(document).ready(function() {
       //    $(".button1").click();
       // }
   });
+   $(".logbut").click(function(){
+          
+          var client_msg = document.getElementById("passbox").value; 
+          console.log(client_msg);
+          //alert("hmm");
+          var request = $.ajax({
+              url: 'https://nonhumans.herokuapp.com/loginuser/',
+              type: 'GET',
+              data: {username: JSON.stringify(document.getElementById("userbox").value), password: JSON.stringify(document.getElementById("passbox").value), hello: "hi"},
+              //tags: { content: document.getElementById("inputclient").value },
+              dataType: "text"
+          });
+          request.done(function( msg ) {
+
+                console.log(msg);
+                useridnow = msg;
+                console.log("rip");
+
+          });
+         
+          request.fail(function( request, status, error ) {
+                console.log(error);
+                alert("fail");
+          });
+      });
   // add to feed button
   //$(".button3").click(function(){
     $(document).on('click', '.button3', function(){
@@ -625,11 +585,15 @@ $(document).ready(function() {
   var randomNumber = Math.floor(Math.random()*textArray.length);
     var client_msg = document.getElementById("inputclient").value 
     $("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
-
+    var temp = this.parentNode.parentNode;
+    //temp = temp.getChildById("messagespan");
+    temp = temp.childNodes.item("messagespan");
+    var po = temp.innerText;
+    console.log(po);
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/addfeed/',
         type: 'GET',
-        data: {tags: JSON.stringify(document.getElementById("inputclient").value), hello: "hi"},
+        data: {tag: JSON.stringify(document.getElementById("inputclient").value), userID: JSON.stringify(useridnow), post: JSON.stringify(po),hello: "hi"},
         complete : function(){
         alert(this.url)
          },
@@ -684,7 +648,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<p><button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
+          $("#area").append("<div class='form-control server' id='outputmessages'><span id='messagespan'>"+msg+ "</span><p><button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -696,7 +660,7 @@ $(document).ready(function() {
           textarea.scrollTop = textarea.scrollHeight;
     });
 
-    document.getElementById("inputclient").value = ""
+    //document.getElementById("inputclient").value = ""
   });
 
 
