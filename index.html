@@ -626,6 +626,7 @@ $(document).ready(function() {
     var retString = "";
     var text = JSON.parse(msg);
     for (item in text){
+        console.log(item);
         var postID = item;
         retString += "id='" + postID + "'>"
         var info = text[item];
@@ -636,9 +637,10 @@ $(document).ready(function() {
         retString += post; 
         console.log(info)
         retString += "<div class='vote'><div class='increment up'> /\\ </div><div class='increment down'> \\/ </div><div class='karma'>" + karma + "</div></div>"
-        retString += "</div><div class='form-control server' id='outputfeed1' float='left' "
+        retString += "</div><div class='form-control server' float='left' "
         
     }
+    console.log(retString);
     return retString;
   }
   $(".button21").click(function(){
