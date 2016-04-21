@@ -375,7 +375,7 @@ html, body { height: 100%; }
 body { 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background: $bg;
 }
     </style>
@@ -407,7 +407,7 @@ body {
                                
                             </div>
                     </div>
-                 
+   
                 </div>
             </li>
             <li>
@@ -458,7 +458,7 @@ body {
                         <ul class="tabs">
                             <li>
                                 <input type="radio" checked name="tabs" id="tab11">
-                                <label for="tab11" type="button" class="btn btn-success button21">Bowling</label>
+                                <label for="tab11" type="button" class="btn btn-success button21">Anime</label>
 
                                 <div id="tab-content11" class="tab-content animated fadeIn">
                                         
@@ -468,7 +468,7 @@ body {
 
                             <li>
                                 <input type="radio" name="tabs" id="tab12">
-                                <label for="tab12" type="button" class="btn btn-success button22">Cartoon</label>
+                                <label for="tab12" type="button" class="btn btn-success button22">TV</label>
 
                                 <div id="tab-content12" class="tab-content animated fadeIn">
                                     
@@ -476,7 +476,7 @@ body {
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab13">
-                                <label for="tab13" type="button" class="btn btn-success button23">Politics</label>
+                                <label for="tab13" type="button" class="btn btn-success button23">Political</label>
 
                                 <div id="tab-content13" class="tab-content animated fadeIn">
                                     
@@ -484,7 +484,7 @@ body {
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab14">
-                                <label for="tab14" type="button" class="btn btn-success button24">Cartoon</label>
+                                <label for="tab14" type="button" class="btn btn-success button24">Movie</label>
 
                                 <div id="tab-content14" class="tab-content animated fadeIn">
                                     
@@ -492,7 +492,7 @@ body {
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab15">
-                                <label for="tab15" type="button" class="btn btn-success button25">Politics</label>
+                                <label for="tab15" type="button" class="btn btn-success button25">Games</label>
 
                                 <div id="tab-content15" class="tab-content animated fadeIn">
                                     
@@ -511,12 +511,7 @@ body {
                 <div id="tabA-content3" class="tab-content animated fadeIn">
 
 
-                    <div class="container-fluid">
-                        
-                    </div>
-                    <br><br>
-                    <div id="area">
-                    </div>
+
                 </div>
             </li>
             <li>
@@ -525,13 +520,6 @@ body {
 
                 <div id="tabA-content3" class="tab-content animated fadeIn">
 
-
-                    <div class="container-fluid">
-                        
-                    </div>
-                    <br><br>
-                    <div id="area">
-                    </div>
                 </div>
             </li>
         </ul>
@@ -734,7 +722,7 @@ $(document).ready(function() {
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/getfeed/',
         type: 'GET',
-        data: {tagname: JSON.stringify("bowling")},
+        data: {tagname: JSON.stringify("anime")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });
@@ -744,7 +732,7 @@ $(document).ready(function() {
           var d = document.getElementById('outputfeed1');
           if (d!=null)
           d.parentNode.removeChild(d);
-          $("#tab-content11").append("<div class='form-control server' float='left' "+ splitJson(msg) + "</div>");
+          $("#tab-content11").append("<div id = 'outputfeed1'><div class='form-control server' float='left' "+ splitJson(msg) + "</div></div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -767,14 +755,17 @@ $(document).ready(function() {
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/getfeed/',
         type: 'GET',
-        data: {tagname: JSON.stringify("bowling")},
+        data: {tagname: JSON.stringify("tv")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });
 
     request.done(function( msg ) {
-          console.log(msg);
-          $("#tab-content12").append("<div class='form-control server' "+ splitJson(msg)+ "</div>");
+          
+          var d = document.getElementById('outputfeed2');
+          if (d!=null)
+          d.parentNode.removeChild(d);
+          $("#tab-content12").append("<div id='outputfeed2'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -796,14 +787,16 @@ $(document).ready(function() {
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/getfeed/',
         type: 'GET',
-        data: {tagname: JSON.stringify("bowling")},
+        data: {tagname: JSON.stringify("political")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });
 
     request.done(function( msg ) {
-          console.log(msg);
-          $("#tab-content13").append("<div class='form-control server' "+ splitJson(msg)+ "</div>");
+          var d = document.getElementById('outputfeed3');
+          if (d!=null)
+          d.parentNode.removeChild(d);
+          $("#tab-content13").append("<div id='outputfeed3'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -825,14 +818,16 @@ $(document).ready(function() {
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/getfeed/',
         type: 'GET',
-        data: {tagname: JSON.stringify("bowling")},
+        data: {tagname: JSON.stringify("movie")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });
 
     request.done(function( msg ) {
-          console.log(msg);
-          $("#tab-content14").append("<div class='form-control server' "+ splitJson(msg)+ "</div>");
+          var d = document.getElementById('outputfeed4');
+          if (d!=null)
+          d.parentNode.removeChild(d);
+          $("#tab-content14").append("<div id='outputfeed4'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -855,14 +850,16 @@ $(document).ready(function() {
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/getfeed/',
         type: 'GET',
-        data: {tagname: JSON.stringify("bowling")},
+        data: {tagname: JSON.stringify("games")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });
 
     request.done(function( msg ) {
-          console.log(msg);
-          $("#tab-content15").append("<div class='form-control server' "+ splitJson(msg) + "</div>");
+          var d = document.getElementById('outputfeed5');
+          if (d!=null)
+          d.parentNode.removeChild(d);
+          $("#tab-content15").append("<div id='outputfeed5'><div class='form-control server' "+ splitJson(msg) + "</div></div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
