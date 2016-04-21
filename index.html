@@ -427,51 +427,14 @@
     <script>
 $(document).ready(function() {
   $("#inputclient").keyup(function(event){
+    console.log("quick test");
       // if(event.keyCode == 13){
       //    $(".button1").click();
       // }
   });
-
-  $(".button1").click(function(){
-    var textArray = [
-      "I don't even think that deserves a reply, if I'm being entirely honest",
-      "You're ugly and I don't grace ugly people by talking with them",
-      "Let me clarify, because I do not repeat myself. I do not repeat myself",
-      "I would make you pay for the wall, for saying that",
-      "If you worked for me, I would fire you for even mentioning that",
-      "I can assure there is no problem, there is no problem"
-  ];
-  var randomNumber = Math.floor(Math.random()*textArray.length);
-    var client_msg = document.getElementById("inputclient").value 
-    $("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
-
-    var request = $.ajax({
-        url: 'https://nonhumans.herokuapp.com/getquote/',
-        type: 'GET',
-        data: {tags: JSON.stringify(document.getElementById("inputclient").value), hello: "hi"},
-        
-        //tags: { content: document.getElementById("inputclient").value },
-        dataType: "text"
-    });
-
-    request.done(function( msg ) {
-          console.log(msg);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<p><button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
-          var textarea = document.getElementById('area');
-          textarea.scrollTop = textarea.scrollHeight;
-    });
-   
-    request.fail(function( request, status, error ) {
-          console.log(error);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
-          var textarea = document.getElementById('area');
-          textarea.scrollTop = textarea.scrollHeight;
-    });
-
-    document.getElementById("inputclient").value = ""
-  });
   // add to feed button
-  $(".button3").click(function(){
+  //$(".button3").click(function(){
+    $(document).on('click', '.button3', function(){
     console.log("here");
     var textArray = [
       "I don't even think that deserves a reply, if I'm being entirely honest",
@@ -518,7 +481,44 @@ $(document).ready(function() {
     var d = document.getElementById('outputmessages');
     d.parentNode.removeChild(d);
   });
+  $(".button1").click(function(){
+    var textArray = [
+      "I don't even think that deserves a reply, if I'm being entirely honest",
+      "You're ugly and I don't grace ugly people by talking with them",
+      "Let me clarify, because I do not repeat myself. I do not repeat myself",
+      "I would make you pay for the wall, for saying that",
+      "If you worked for me, I would fire you for even mentioning that",
+      "I can assure there is no problem, there is no problem"
+  ];
+  var randomNumber = Math.floor(Math.random()*textArray.length);
+    var client_msg = document.getElementById("inputclient").value 
+    $("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
 
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getquote/',
+        type: 'GET',
+        data: {tags: JSON.stringify(document.getElementById("inputclient").value), hello: "hi"},
+        
+        //tags: { content: document.getElementById("inputclient").value },
+        dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          console.log(msg);
+          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<p><button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button4'>Try again!</button></div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          $("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
 
 
   $(".button2").click(function(){
