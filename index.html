@@ -636,7 +636,7 @@ $(document).ready(function() {
         var karma = info["karma"];
         retString += post; 
         console.log(info)
-        retString += "<div class='vote'><div class='increment up'> /\\ </div><div class='increment down'> \\/ </div><div class='karma'>" + karma + "</div></div>"
+        retString += "<div class='vote'><div class='increment up' id='up" + postID + "'> /\\ </div><div class='increment down' id='down" + postID + "'> \\/ </div><div class='karma'>" + karma + "</div></div>"
         retString += "</div><div class='form-control server' float='left' "
         
     }
@@ -807,6 +807,7 @@ $(document).ready(function() {
        var content = temp;
        var postID = content.id;
        console.log(postID);
+       document.getElementById("up"+postID).disabled=true;
       var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/updatekarma/',
         type: 'GET',
@@ -814,17 +815,20 @@ $(document).ready(function() {
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });  
+
     } else {
       var karma = karma - 1;
        $("~ .karma", this).text(karma);
-       var temp = this.parentNode;
-       var content = temp.querySelector("div");
+       var temp = this.parentNode.parentNode;
+       console.log(temp);
+       var content = temp;
        var postID = content.id;
        console.log(postID);
+       document.getElementById("down"+postID).disabled=true;
       var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/updatekarma/',
         type: 'GET',
-        data: {postID: JSON.stringify(postID), add: JSON.stringify("-11")}
+        data: {postID: JSON.stringify(postID), add: JSON.stringify("-1")}
       });     
     }
     
