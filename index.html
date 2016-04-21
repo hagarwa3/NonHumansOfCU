@@ -477,7 +477,7 @@ $(document).ready(function() {
   });
 
   //try again, get new quote button
-  $(".button4").click(function(){
+  $(document).on('click', '.button4', function(){
     var d = document.getElementById('outputmessages');
     d.parentNode.removeChild(d);
   });
