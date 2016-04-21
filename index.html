@@ -299,10 +299,10 @@
         -moz-animation-duration: 0.5s;
         animation-duration: 0.5s;
     }
-    $size : 10rem;
-$border-width : .5rem;
-$radius : 1rem; /* try 50% */
-$transition : .3s;
+    
+/*$border-width : .5rem;
+$radius : 1rem;  try 50% */
+
 
 $bg : #F6F3E4;
 $green : #4BC35F;
@@ -316,10 +316,10 @@ $red : #C15044;
 .vote {
   display: flex;
   flex-direction: column;
-  font-family: "Noto Sans";
+  font-family: "Raleway";
   position: relative;
-  width: $size;
-  height: $size;
+  width: 10rem;
+  height: 10rem;
   margin: 1rem;
 }
 
@@ -327,7 +327,7 @@ $red : #C15044;
   flex: 1 0 0;
   text-align: center;
   opacity: .5;
-  transition: $transition;
+  transition: .35;
   cursor: pointer;
   
   &.up {
@@ -349,12 +349,12 @@ $red : #C15044;
   position: absolute;
   top: 0;
   border-radius: $radius*.1;
-  margin: $size*.25;
+  margin: 10rem*.25;
   background: $bg;
-  width: $size*.5;
-  font-size: $size*.25;
+  width: 10rem*.5;
+  font-size: 10rem*.25;
   font-weight: bold;
-  line-height: $size*.5;
+  line-height: 10rem*.5;
   text-align: center;
   box-shadow: 0 0 0 $border-width $bg;
   pointer-events: none;
@@ -639,8 +639,9 @@ $(document).ready(function() {
         var karma = info["karma"];
         retString += post; 
         console.log(info)
+        retString += "<div class='vote circle'><div class='increment up'> /\\ </div><div class='increment down'> \\/ </div><div class='karma'>" + karma + "</div></div>"
         retString += "</div><div class='form-control server' id='outputfeed1'>"
-        retString += "<div class='vote circle'><div class='increment up'></div><div class='increment down'></div><div class='count'>8</div></div>"
+        
     }
     return retString;
   }
@@ -794,7 +795,8 @@ $(document).ready(function() {
     document.getElementById("inputclient").value = ""
   }); 
   $(function(){
-  $(".increment").click(function(){
+  
+    $(document).on('click', '.increment', function(){
     var karma = parseInt($("~ .karma", this).text());
     
     if($(this).hasClass("up")) {
@@ -802,7 +804,7 @@ $(document).ready(function() {
       
        $("~ .karma", this).text(karma);
     } else {
-      var count = count - 1;
+      var karma = karma - 1;
        $("~ .karma", this).text(karma);     
     }
     
