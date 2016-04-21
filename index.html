@@ -636,7 +636,7 @@ $(document).ready(function() {
         retString += post; 
         console.log(info)
         retString += "<div class='vote'><div class='increment up'> /\\ </div><div class='increment down'> \\/ </div><div class='karma'>" + karma + "</div></div>"
-        retString += "</div><div class='form-control server' id='outputfeed1' float='left' "
+        retString += "</div><div class='form-control server' float='left' "
         
     }
     return retString;
@@ -688,7 +688,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#tab-content12").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          $("#tab-content12").append("<div class='form-control server' float='left' "+ splitJson(msg) + "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -717,7 +717,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#tab-content13").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          $("#tab-content13").append("<div class='form-control server' float='left' "+ splitJson(msg) + "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -746,7 +746,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#tab-content14").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          $("#tab-content14").append("<div class='form-control server' float='left' "+ splitJson(msg) + "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -776,7 +776,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#tab-content15").append("<div class='form-control server' id='outputfeed'>"+msg+ "</div>");
+          $("#tab-content15").append("<div class='form-control server' float='left' "+ splitJson(msg) + "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
