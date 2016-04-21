@@ -449,9 +449,7 @@ $(document).ready(function() {
         url: 'https://nonhumans.herokuapp.com/getquote/',
         type: 'GET',
         data: {tags: JSON.stringify(document.getElementById("inputclient").value), hello: "hi"},
-        complete : function(){
-        alert(this.url)
-         },
+        
         //tags: { content: document.getElementById("inputclient").value },
         dataType: "text"
     });
@@ -499,7 +497,7 @@ $(document).ready(function() {
 
     request.done(function( msg ) {
           console.log(msg);
-          $("#area").append("<div class='form-control server' id='outputmessages'>"+msg+ "<button type='button' class='btn btn-success button3'>Add to feed</button><button type='button' class='btn btn-success button1'>Try again!</button></div>");
+          $("#area").append("Success");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
