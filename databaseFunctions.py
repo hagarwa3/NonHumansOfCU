@@ -57,34 +57,34 @@ def insertQuote():
 	return "success i believe"
 
 
-@app.route("/deletequote/", methods=['GET', 'POST'])
-def deleteQuote():
-	#cursor = conn.cursor()
-	print "delete starts"
-	print str(request)
-	qu = request.args.get('quote')
-	qu = qu.replace("%22","")
-	qu = qu.replace('"',"")
-	print str(qu)
-	find = "SELECT * FROM Quotes WHERE Quotes.Quote = \'"+str(qu)+"\'"
-	conn.ping(True)
-	cursor.execute(find)
-	qId =0
-	if cursor:
-		count = 0
-		for row in cursor.fetchall():
-			count +=1
-			qId = row[0]
-			if count ==1:
-				break
-		delete = "DELETE FROM Quotes WHERE Quotes.QuoteID= "+str(qId)
-		conn.ping(True)
-		cursor.execute(delete)
-		delete = "DELETE FROM Tags WHERE Tags.QuoteID= "+str(qId)
-		conn.ping(True)
-		cursor.execute(delete)
-	conn.commit()
-	return "success i hope in delete"
+# @app.route("/deletequote/", methods=['GET', 'POST'])
+# def deleteQuote():
+# 	#cursor = conn.cursor()
+# 	print "delete starts"
+# 	print str(request)
+# 	qu = request.args.get('quote')
+# 	qu = qu.replace("%22","")
+# 	qu = qu.replace('"',"")
+# 	print str(qu)
+# 	find = "SELECT * FROM Quotes WHERE Quotes.Quote = \'"+str(qu)+"\'"
+# 	conn.ping(True)
+# 	cursor.execute(find)
+# 	qId =0
+# 	if cursor:
+# 		count = 0
+# 		for row in cursor.fetchall():
+# 			count +=1
+# 			qId = row[0]
+# 			if count ==1:
+# 				break
+# 		delete = "DELETE FROM Quotes WHERE Quotes.QuoteID= "+str(qId)
+# 		conn.ping(True)
+# 		cursor.execute(delete)
+# 		delete = "DELETE FROM Tags WHERE Tags.QuoteID= "+str(qId)
+# 		conn.ping(True)
+# 		cursor.execute(delete)
+# 	conn.commit()
+# 	return "success i hope in delete"
 
 # def deleteTag(tag, conn):
 # 	cursor = conn.cursor()
@@ -92,23 +92,23 @@ def deleteQuote():
 # 	cursor.execute(delete)
 # 	conn.commit()
 
-@app.route("/updatequote/", methods=['GET', 'POST'])
-def updateQuote():
-	#cursor = conn.cursor()
-	quo = request.args.get('quote')
-	quo = quo.replace("%22","")
-	quo = quo.replace('"',"")
-	print str(quo)
-	newqu = request.args.get('newquote')
-	newqu = newqu.replace("%22","")
-	newqu = newqu.replace('"',"")
-	print str(newqu)
-	update = "UPDATE Quotes SET Quote =\'" + str(newqu)+"\'WHERE Quote =\'"+str(quo)+"\'"
-	print update
-	conn.ping(True)
-	cursor.execute(update)
-	conn.commit()
-	return "kinda worked"
+# @app.route("/updatequote/", methods=['GET', 'POST'])
+# def updateQuote():
+# 	#cursor = conn.cursor()
+# 	quo = request.args.get('quote')
+# 	quo = quo.replace("%22","")
+# 	quo = quo.replace('"',"")
+# 	print str(quo)
+# 	newqu = request.args.get('newquote')
+# 	newqu = newqu.replace("%22","")
+# 	newqu = newqu.replace('"',"")
+# 	print str(newqu)
+# 	update = "UPDATE Quotes SET Quote =\'" + str(newqu)+"\'WHERE Quote =\'"+str(quo)+"\'"
+# 	print update
+# 	conn.ping(True)
+# 	cursor.execute(update)
+# 	conn.commit()
+# 	return "kinda worked"
 
 @app.route("/getquote/", methods=['GET'])
 def getQuote():
@@ -119,8 +119,9 @@ def getQuote():
 	tag = str(request.args.get('tags'))
 	tag = tag.replace("%22","")
 	tag = tag.replace('"',"")
-	print tag
-	tags = [tag]
+	tags = tag.split(',')
+	print tags
+	#tags = [tag]
 	find = "SELECT DISTINCT q.Quote FROM Quotes AS q, Tags As t WHERE "
 	count = 0
 	for line in tags:
@@ -134,16 +135,58 @@ def getQuote():
 	cursor.execute(find)
 	top = cursor.rowcount
 	num = randint(1,top)
-	count =1
-	many = ''
+	elements = []
+	# many = ''
 	for row in cursor:
-		if count == num:
-			many = row[0]
-			break
-		print row[0]
-		count +=1
+		elements.append(row[0])
+	starter = elements[num]
+	w1 = starter.split()[0]+" "+starter.split()[1]
+	starter = w1.lower()
+	print starter
+	#starter = u"can't do"
+
+	combine = ' '.join(elements)
+	#print combine
+	combine = combine.split()
+	for i in xrange(len(combine)):
+		combine[i]=combine[i].lower()
+	triplet = []
+	for i in xrange(len(combine)-3):
+		triplet.append([combine[i],combine[i+1],combine[i+2]])
+
+	doubledict = {}
+
+	for l in triplet:
+		duet = l[0]+" "+l[1]
+		if duet in doubledict:
+			doubledict[duet].append(str(l[2]))
+		else:
+			doubledict[duet]=[str(l[2])]
+
+	#print doubledict
+
+	length = randint(3,20)
+	print length
+	listsofar = starter.split()
+	while len(listsofar)<=length:
+	    prev = listsofar[-2]+" "+ listsofar[-1]
+	    #print prev
+	    get = doubledict[prev]
+	    toget = randint(0,len(get)-1)
+	    #print get
+	    #print toget
+	    string = get[toget]
+	    listsofar.append(string)
+	    if len(listsofar)==length and ("." != listsofar[-1][-1] and length<40):
+	        length+=1
+	listsofar.pop()
+	listsofar = ' '.join(listsofar)
+	print "here"
+	message = listsofar
+	print message
+
 	conn.commit()
-	return many
+	return message
 
 
 @app.route("/addfeed/", methods=['GET'])
@@ -225,10 +268,30 @@ def updateKarma():
 	cursor.execute(stringIn)
 	conn.commit()
 	return "hahaha"
-@app.route("/createuser/", methods=['POST'])
-def createUser():
+# @app.route("/createuser/", methods=['POST'])
+# def createUser():
 
 
+# 	print "here we go"
+# 	print str(request)
+# 	username = request.args.get('username')
+# 	username = username.replace("%22","")
+# 	username = username.replace('"',"")
+# 	print username
+
+# 	password = request.args.get('password')
+# 	password = password.replace("%22","")
+# 	password = password.replace('"',"")
+# 	print password
+
+
+# 	cursor = conn.cursor()
+# 	stringIn = "INSERT INTO Users(Username, Pass) Values(\'"+username+"\',\'"+password+"\');"
+# 	cursor.execute(stringIn)
+# 	conn.commit()
+
+@app.route("/loginuser/", methods=['GET','POST'])
+def loginUser():
 	print "here we go"
 	print str(request)
 	username = request.args.get('username')
@@ -242,10 +305,41 @@ def createUser():
 	print password
 
 
+	conn.ping(True)
 	cursor = conn.cursor()
-	stringIn = "INSERT INTO Users(Username, Pass) Values(\'"+username+"\',\'"+password+"\');"
+	stringIn = "SELECT * FROM Users WHERE username = \""+username+"\""
 	cursor.execute(stringIn)
-	conn.commit()
+	print "here it is"
+	count = 0
+	for row in cursor:
+		count+=1
+	print "oh"
+	if(count == 0):
+		print "count was 0"
+		stringIn = "INSERT INTO Users(Username, Pass) Values(\'"+username+"\',\'"+password+"\');"
+		cursor.execute(stringIn)
+		conn.commit()
+		return "created"
+	else:
+		print "hmmmmmm"
+		stringIn = "SELECT * FROM Users WHERE username = \""+username+"\" AND pass = \""+password+"\";"
+		cursor.execute(stringIn)
+		conn.commit()
+		counter = 0
+		for row in cursor:
+			counter+=1
+		if(counter<1):
+			print "rip"
+			return "not found"
+		else:
+			for row in cursor:
+				print row
+				print "yoooo"
+				return str(row[0])
+
+
+
+
 
 if __name__ == "__main__":
     #port = int(os.environ.get('PORT', 5000))
