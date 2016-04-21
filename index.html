@@ -293,11 +293,19 @@
         position: absolute;
         top: 53px;
         left: 0;
-        box-sizing: border-box;
-        -webkit-animation-duration: 0.5s;
+                box-sizing: border-box;
+         -webkit-animation-duration: 0.5s;
         -o-animation-duration: 0.5s;
-        -moz-animation-duration: 0.5s;
-        animation-duration: 0.5s;
+            -moz-animation-duration: 0.5s;
+                animation-duration: 0.5s;
+        }
+    .up{
+        color: green;
+    }
+
+    .down{
+        color:red;
+    }
     </style>
 </head>
 <div>
@@ -546,6 +554,23 @@ $(document).ready(function() {
 
   //feed buttons
 
+  function splitJson(msg){
+    var retString = "";
+    var text = JSON.parse(msg);
+    for (item in text){
+        var postID = item;
+        var info = text[item];
+        var userID = info["userID"];
+        retString += "<b>" + userID + "</b><p>";
+        var post = info["post"];
+        var karma = info["karma"];
+        retString += post; 
+        console.log(info)
+        retString += "</div><div class='form-control server' id='outputfeed1'>"
+        retString += "<i title=' Up Votes' ng-click='changeVote(vote, 'up')'' class='fa fa-arrow-circle-up fa-2x' ng-class='{true:'up', false:''}[vote=='up']''></i><br><i title='Down Votes' ng-click='changeVote(vote, 'down')'' class='fa fa-arrow-circle-down fa-2x'  ng-class='{true:'down', false:''}[vote=='down']''></i>"
+    }
+    return retString;
+  }
   $(".button21").click(function(){
     
     
@@ -559,11 +584,11 @@ $(document).ready(function() {
     });
 
     request.done(function( msg ) {
-          console.log(msg);
+                    
           var d = document.getElementById('outputfeed1');
           if (d!=null)
           d.parentNode.removeChild(d);
-          $("#tab-content11").append("<div class='form-control server' id='outputfeed1'>"+msg+ "</div>");
+          $("#tab-content11").append("<div class='form-control server' id='outputfeed1'>"+ splitJson(msg) + "</div>");
           var textarea = document.getElementById('area');
           textarea.scrollTop = textarea.scrollHeight;
     });
@@ -696,6 +721,7 @@ $(document).ready(function() {
     document.getElementById("inputclient").value = ""
   });    
   });
+    
     </script>
 
     </body>
