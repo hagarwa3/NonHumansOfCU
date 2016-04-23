@@ -581,7 +581,7 @@ $(".userfeed").click(function(){
     });
 
     request.done(function( msg ) {
-          var d = document.getElementById('#tabA-contentuser');
+          var d = document.getElementById('tabA-contentuser');
           if (d!=null)
           d.innerHTML = "";
           $("#tabA-contentuser").append("<div id='outputfeeduser'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
@@ -616,7 +616,7 @@ $(".userpost").click(function(){
     });
 
     request.done(function( msg ) {
-          var d = document.getElementById('#tabA-content55');
+          var d = document.getElementById('tabA-content55');
           if (d!=null)
           d.innerHTML = "";
           $("#tabA-content55").append("<div id='outputfeeduser'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
