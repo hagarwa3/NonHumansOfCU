@@ -476,7 +476,7 @@ body {
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab13">
-                                <label for="tab13" type="button" class="btn btn-success button23">Political</label>
+                                <label for="tab13" type="button" class="btn btn-success button23">Politics</label>
 
                                 <div id="tab-content13" class="tab-content animated fadeIn">
                                     
@@ -506,9 +506,8 @@ body {
             </li>
             <li>
                 <input type="radio" checked name="tabsA" id="tabA4">
-                <label for="tabA4">User Feed</label>
-
-                <div id="tabA-content3" class="tab-content animated fadeIn">
+                <label for="tabA4" type="button" class="btn btn-success userfeed">User Feed</label>
+                <div id="tabA-contentuser" class="tab-content animated fadeIn">
 
 
 
@@ -516,9 +515,9 @@ body {
             </li>
             <li>
                 <input type="radio" checked name="tabsA" id="tabA5">
-                <label for="tabA5">Posts</label>
+                <label for="tabA5" type="button" class="btn btn-success userpost">User Post</label>
 
-                <div id="tabA-content3" class="tab-content animated fadeIn">
+                <div id="tabA-content55" class="tab-content animated fadeIn">
 
                 </div>
             </li>
@@ -566,6 +565,76 @@ $(document).ready(function() {
       });
   // add to feed button
   //$(".button3").click(function(){
+
+///////////user feed////////////////////
+$(".userfeed").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getuniqueuserfeed/',
+        type: 'GET',
+        data: {userid: JSON.stringify(useridnow)},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          // var d = document.getElementById('outputfeeduser');
+          // if (d!=null)
+          // d.parentNode.removeChild(d);
+          $("#tabA-contentuser").append("<div id='outputfeeduser'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
+          // var textarea = document.getElementById('area');
+          // textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+
+//////////////////////////////////
+
+///////////user posts////////////////////
+$(".userpost").click(function(){
+    
+  //var randomNumber = Math.floor(Math.random()*textArray.length);
+    
+    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+    var request = $.ajax({
+        url: 'https://nonhumans.herokuapp.com/getquotesaddedbyuser/',
+        type: 'GET',
+        data: {userid: JSON.stringify(useridnow)},
+        //tags: { content: document.getElementById("inputclient").value },
+        //dataType: "text"
+    });
+
+    request.done(function( msg ) {
+          // var d = document.getElementById('outputfeeduser');
+          // if (d!=null)
+          // d.parentNode.removeChild(d);
+          $("#tabA-content55").append("<div id='outputfeeduser'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
+          // var textarea = document.getElementById('area');
+          // textarea.scrollTop = textarea.scrollHeight;
+    });
+   
+    request.fail(function( request, status, error ) {
+          console.log(error);
+          //$("#area").append("<div class='form-control server' id='outputmessages'>"+textArray[randomNumber]+ "</div>");
+          var textarea = document.getElementById('area');
+          textarea.scrollTop = textarea.scrollHeight;
+    });
+
+    document.getElementById("inputclient").value = ""
+  });
+
+//////////////////////////////////
     $(document).on('click', '.button3', function(){
     console.log("here");
     var textArray = [
@@ -674,7 +743,7 @@ $(document).ready(function() {
         url: 'https://nonhumans.herokuapp.com/insertquote/',
         type: 'GET',
         data: {quote: JSON.stringify(document.getElementById("inputclient2").value),
-          tags: JSON.stringify(document.getElementById("inputclient3").value)},
+          tags: JSON.stringify(document.getElementById("inputclient3").value), userid:JSON.stringify(useridnow)},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });
@@ -716,7 +785,7 @@ $(document).ready(function() {
         retString += "</div><div class='form-control server' float='left' "
         
     }
-    console.log(retString);
+    //console.log(retString);
     return retString;
   }
   $(".button21").click(function(){
@@ -785,13 +854,11 @@ $(document).ready(function() {
   });
   $(".button23").click(function(){
     
-  //var randomNumber = Math.floor(Math.random()*textArray.length);
-    
-    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+  
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/getfeed/',
         type: 'GET',
-        data: {tagname: JSON.stringify("political")},
+        data: {tagname: JSON.stringify("politics")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });

@@ -29,6 +29,7 @@ def insertQuote():
 	qu = request.args.get('quote')
 	qu = qu.replace("%22","")
 	qu = qu.replace('"',"")
+	qu = qu.replace('\'',"")
 	print qu
 	#tags = [tag]
 	tags = request.args.get('tags')
@@ -237,10 +238,10 @@ def fillfeed():
 	tagname = tagname.replace("%22","")
 	tagname = tagname.replace('"',"")
 	print tagname
-	stringIn = "SELECT * FROM Posts WHERE karma > -3 AND DATEINSERT >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND tag = \""+tagname+"\";"
+	stringIn = "SELECT * FROM Posts WHERE karma > -3 AND DATEINSERT >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND tag = \""+tagname+"\" ORDER BY karma DESC;"
 	conn.ping(True)
 	cursor.execute(stringIn)
-#	lists = []
+	lists = []
 	somedict = {}
 	for row in cursor:
 #		thislist = [row[0], row[1], row[2], row[3], row[5]]
@@ -250,8 +251,14 @@ def fillfeed():
 		username = "hello"
 		for name in cursor2:
 			username = name[0]
-		somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
+		lists.append([row[0],row[1],username,row[3],row[5]] )
+		#somedict[row[0]] = {"post":row[1], "userID":username, "tagname":row[3], "karma":row[5]}
 #	 	lists.append(thislist)
+	lists.sort(key=lambda x: x[4],reverse = True)
+	print lists
+	for row in lists:
+		somedict[row[0]] = {"post":row[1], "userID":row[2], "tagname":row[3], "karma":row[4]}
+	#somedict = sorted(somedict.items(), key=lambda x: x[1]['karma'], reverse = True)
 	haha = json.dumps(somedict)
 	return haha
 
