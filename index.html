@@ -476,7 +476,7 @@ body {
                             </li>
                             <li>
                                 <input type="radio" name="tabs" id="tab13">
-                                <label for="tab13" type="button" class="btn btn-success button23">Political</label>
+                                <label for="tab13" type="button" class="btn btn-success button23">Politics</label>
 
                                 <div id="tab-content13" class="tab-content animated fadeIn">
                                     
@@ -581,9 +581,9 @@ $(".userfeed").click(function(){
     });
 
     request.done(function( msg ) {
-          // var d = document.getElementById('outputfeeduser');
-          // if (d!=null)
-          // d.parentNode.removeChild(d);
+          var d = document.getElementById('#tabA-contentuser');
+          if (d!=null)
+          d.innerHTML = "";
           $("#tabA-contentuser").append("<div id='outputfeeduser'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
           // var textarea = document.getElementById('area');
           // textarea.scrollTop = textarea.scrollHeight;
@@ -616,9 +616,9 @@ $(".userpost").click(function(){
     });
 
     request.done(function( msg ) {
-          // var d = document.getElementById('outputfeeduser');
-          // if (d!=null)
-          // d.parentNode.removeChild(d);
+          var d = document.getElementById('#tabA-content55');
+          if (d!=null)
+          d.innerHTML = "";
           $("#tabA-content55").append("<div id='outputfeeduser'><div class='form-control server' "+ splitJson(msg)+ "</div></div>");
           // var textarea = document.getElementById('area');
           // textarea.scrollTop = textarea.scrollHeight;
@@ -854,13 +854,11 @@ $(".userpost").click(function(){
   });
   $(".button23").click(function(){
     
-  //var randomNumber = Math.floor(Math.random()*textArray.length);
-    
-    //$("#area").append("<div class='form-control client'>"+client_msg+ "</div>");
+  
     var request = $.ajax({
         url: 'https://nonhumans.herokuapp.com/getfeed/',
         type: 'GET',
-        data: {tagname: JSON.stringify("political")},
+        data: {tagname: JSON.stringify("politics")},
         //tags: { content: document.getElementById("inputclient").value },
         //dataType: "text"
     });
