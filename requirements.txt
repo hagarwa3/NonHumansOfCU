@@ -9,6 +9,6 @@ oauthlib==0.6.1
 requests==2.2.1
 requests-oauthlib==0.5.0
 six==1.5.2
-urllib3==1.7.1
+urllib3==1.26.5
 wheel==0.24.0
 Flask-MySQL==1.3
