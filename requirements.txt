@@ -2,7 +2,7 @@ Flask==0.10.1
 Flask-Cors==2.1.2
 Flask-MySQLdb==0.2.0
 Jinja2==2.8
-Mako==0.9.1
+Mako==1.2.2
 MarkupSafe==0.18
 Werkzeug==0.11.4
 oauthlib==0.6.1
